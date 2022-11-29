@@ -95,13 +95,89 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      
+      try{
+        if(firstNum == null){
+          throw new nullError("No input for first number");
+        }
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }
+      catch(error){
+        console.error(error);
+      }
+      finally{
+        console.log('Do not care if there are null values');
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+    errorBtns[0].addEventListener('click', e=> {
+      console.log("This is a Console log");
+    });
+    errorBtns[1].addEventListener('click', e=> {
+      console.error("This is a Console Error");
+    });
+    errorBtns[2].addEventListener('click', e=> {
+      console.count("This is a Console Count");
+    });
+    errorBtns[3].addEventListener('click', e=> {
+      console.warn("This is a Console Warning");
+    });
+    errorBtns[4].addEventListener('click', e=> {
+      console.assert(0 == 23, "This is a Console Assertion");
+    });
+    errorBtns[5].addEventListener('click', e=> {
+      console.clear();
+    });
+    errorBtns[6].addEventListener('click', e=> {
+      console.dir(errorBtns);
+    });
+    errorBtns[7].addEventListener('click', e=> {
+      console.dirxml(errorBtns);
+    });
+    errorBtns[8].addEventListener('click', e=> {
+      console.group("This is a Console Group");
+    });
+    errorBtns[9].addEventListener('click', e=> {
+      console.groupEnd("This is a Console Group End");
+    });
+    errorBtns[10].addEventListener('click', e=> {
+      console.table(["4", "2", "0"]);
+    });
+    errorBtns[11].addEventListener('click', e=> {
+      console.time("This is a Console Timer");
+    });
+    errorBtns[12].addEventListener('click', e=> {
+      console.timeEnd("This is a Console Timer End");
+    });
+    errorBtns[13].addEventListener('click', e=> {
+      console.trace();
+    });
+    errorBtns[14].addEventListener('click', e=> {
+      console.log("Global Error Imminent");
+      errorBtns[23].meltdownOccured();
+    });
+
+    class nullError extends Error {
+      constructor(message) {
+      super(message);
+      this.name = "nullError"; 
+      }
+    }
+
+    function test() {
+      throw new nullError("NO VALUES DETECTED!");
+    }
+
+    try {
+      test();
+    } 
+    catch(error) {
+      console.error(error);
+    }
   </script>
 </body>
 
